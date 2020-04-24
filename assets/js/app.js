@@ -23,7 +23,7 @@ function agregarTweet(e){
     //leer el valor de text tarea // taking the value of text tarea
     console.log('Formulario enviado')
     const tweet = document.getElementById('tweet').value
-    //crear boton de eliminar // create delet butto
+    //crear boton de eliminar // create delet button
     const botonBorrar = document.createElement('a')
     botonBorrar.classList = 'borrar-tweet'
     botonBorrar.innerText = 'X'
@@ -31,7 +31,7 @@ function agregarTweet(e){
     // crate the content and add the content at the list
     const li = document.createElement('li')
     li.innerText = tweet
-    li.appendChild(botonBorrar)
+    li.appendChild(botonBorrar)//add the delete button 
     //agregando la lista al DOM //add list to the DOM
     listaTweets.appendChild(li)
     console.log(tweet);
