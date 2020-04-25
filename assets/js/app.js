@@ -12,6 +12,9 @@ eventListeners();
 function eventListeners(){
     //cuando se envia el formulario // when form is send
     document.querySelector("#formulario").addEventListener('submit',agregarTweet);
+
+    //borrar tweet // delet tweets
+    listaTweets.addEventListener('click', borrarTweet)
 }
 
 //Funciones
@@ -22,11 +25,13 @@ function agregarTweet(e){
     e.preventDefault();
     //leer el valor de text tarea // taking the value of text tarea
     console.log('Formulario enviado')
+
     const tweet = document.getElementById('tweet').value
     //crear boton de eliminar // create delet button
     const botonBorrar = document.createElement('a')
     botonBorrar.classList = 'borrar-tweet'
     botonBorrar.innerText = 'X'
+
     //crear el contenido y añadir el contenido a la lista
     // crate the content and add the content at the list
     const li = document.createElement('li')
@@ -36,4 +41,37 @@ function agregarTweet(e){
     listaTweets.appendChild(li)
     console.log(tweet);
 
+    //Añadir a Local Storage // add to LocalStorage
+    agregarTweetLocalStorage(tweet)
+}
+
+//delet tweet from the list
+function borrarTweet(e){
+    e.preventDefault()
+    if(e.target.className  === 'borrar-tweet'){
+        console.log(e.target.parentElement.remove());
+        alert('tweet eliminado')
+    } 
+    console.log('diste click en la lista')
+}
+
+//agregar a local storage
+function agregarTweetLocalStorage(tweet){
+    let tweets
+    tweets = obtenerTweetsLocalStorage()
+    //añadir el nuevo tweet
+    tweets.push(tweet)
+    //convert from string to array for loca storage
+    localStorage.setItem('tweets', JSON.stringify(tweets))
+}
+
+function obtenerTweetsLocalStorage(){
+    let tweets
+    //revisamos los valores de local storage
+    if(localStorage.getItem('tweets') === null){
+        tweets = []
+    } else{
+        tweets = JSON.parse(localStorage.getItem('tweets'))
+    }
+    return tweets
 }
