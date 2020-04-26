@@ -15,6 +15,8 @@ function eventListeners(){
 
     //borrar tweet // delet tweets
     listaTweets.addEventListener('click', borrarTweet)
+    //contenido cargado // content loaded
+    document.addEventListener('DOMContentLoaded',localStorageListo)
 }
 
 //Funciones
@@ -55,6 +57,28 @@ function borrarTweet(e){
     console.log('diste click en la lista')
 }
 
+//mostrar datos de local storage en la lista
+//show dates from local storage in the list
+function localStorageListo(){
+    let tweets
+
+    tweets = obtenerTweetsLocalStorage();
+    tweets.forEach(function(tweet){
+        
+        const botonBorrar = document.createElement('a')
+        botonBorrar.classList = 'borrar-tweet'
+        botonBorrar.innerText = 'X'
+
+        //crear el contenido y añadir el contenido a la lista
+        // crate the content and add the content at the list
+        const li = document.createElement('li')
+        li.innerText = tweet
+        li.appendChild(botonBorrar)//add the delete button 
+        //agregando la lista al DOM //add list to the DOM
+        listaTweets.appendChild(li)
+    })
+}
+
 //agregar a local storage
 function agregarTweetLocalStorage(tweet){
     let tweets
@@ -68,6 +92,7 @@ function agregarTweetLocalStorage(tweet){
 function obtenerTweetsLocalStorage(){
     let tweets
     //revisamos los valores de local storage
+    //check local storage values
     if(localStorage.getItem('tweets') === null){
         tweets = []
     } else{
@@ -75,3 +100,4 @@ function obtenerTweetsLocalStorage(){
     }
     return tweets
 }
+
