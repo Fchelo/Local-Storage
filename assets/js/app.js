@@ -1,11 +1,6 @@
 //variables //vars
 const toDoList = document.getElementById('lista-tweets')
 
-
-
-
-
-
 //Event Listeners
 
 eventListeners();
