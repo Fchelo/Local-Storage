@@ -1,5 +1,5 @@
 //variables //vars
-const listaTweets = document.getElementById('lista-tweets')
+const toDoList = document.getElementById('lista-tweets')
 
 
 
@@ -10,18 +10,22 @@ const listaTweets = document.getElementById('lista-tweets')
 
 eventListeners();
 function eventListeners(){
-    //cuando se envia el formulario // when form is send
+    //cuando se envia el formulario // when form is sended
     document.querySelector("#formulario").addEventListener('submit',agregarTweet);
 
+    document.querySelector("#formulario").addEventListener('submit', cleanTextarea);
     //borrar tweet // delet tweets
-    listaTweets.addEventListener('click', borrarTweet)
+    toDoList.addEventListener('click', borrarTweet)
     //contenido cargado // content loaded
     document.addEventListener('DOMContentLoaded',localStorageListo)
 }
 
 //Funciones
 
-
+function cleanTextarea (e){
+    e.preventDefault();
+    document.getElementById('tweet').value = '';
+}
 //Añadir tweet del formulario
 function agregarTweet(e){
     e.preventDefault();
@@ -29,6 +33,8 @@ function agregarTweet(e){
     console.log('Formulario enviado')
 
     const tweet = document.getElementById('tweet').value
+    //clear  text area
+
     //crear boton de eliminar // create delet button
     const botonBorrar = document.createElement('a')
     botonBorrar.classList = 'borrar-tweet'
@@ -40,12 +46,13 @@ function agregarTweet(e){
     li.innerText = tweet
     li.appendChild(botonBorrar)//add the delete button 
     //agregando la lista al DOM //add list to the DOM
-    listaTweets.appendChild(li)
+    toDoList.appendChild(li)
     console.log(tweet);
 
     //Añadir a Local Storage // add to LocalStorage
     agregarTweetLocalStorage(tweet)
 }
+
 
 //delet tweet from the list
 function borrarTweet(e){
@@ -75,7 +82,7 @@ function localStorageListo(){
         li.innerText = tweet
         li.appendChild(botonBorrar)//add the delete button 
         //agregando la lista al DOM //add list to the DOM
-        listaTweets.appendChild(li)
+        toDoList.appendChild(li)
     })
 }
 
